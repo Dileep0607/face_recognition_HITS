@@ -1,33 +1,34 @@
 import face_recognition
 import cv2
 import numpy as np
-from db_function import get, add_item
-
-students = []
+from name_function import get_student
+from db_function import add_item
 
 
 video_capture = cv2.VideoCapture(0)
 
-abaid_image = face_recognition.load_image_file("abaid.jpg")
-abaid_face_encoding = face_recognition.face_encodings(abaid_image)[0]
+students = []
+nam = []
+enc = []
+im = []
+ima = []
+text = get_student()
+for i in text:
+    for j in i:
+        nam.append(j)
+        enc.append(j+'_face_encoding')
+        im.append(j+'_image')
+        ima.append(j+'.jpg')
 
-dileep_image = face_recognition.load_image_file("dileep.jpg")
-dileep_face_encoding = face_recognition.face_encodings(dileep_image)[0]
-
-aadithya_image = face_recognition.load_image_file("aadithya.jpg")
-aadithya_face_encoding = face_recognition.face_encodings(aadithya_image)[0]
-
-known_face_encodings = [
-    abaid_face_encoding,
-    dileep_face_encoding,
-    aadithya_face_encoding
-]
-known_face_names = [
-    "Abaid",
-    "Dileep",
-    "Aadithya"
+for i in range(len(text)):
     
-]
+    im[i] = face_recognition.load_image_file(ima[i]) 
+    enc[i] = face_recognition.face_encodings(im[i])[0]
+
+    known_face_encodings = enc
+
+    known_face_names = nam
+
 face_locations = []
 face_encodings = []
 face_names = []
@@ -57,16 +58,16 @@ while True:
 
             face_names.append(name)
 
+            if(name != 'Unknown'):
+                if(name not in students):
+                    add_item(name)
+                    students.append(name)
+                    print(name)
+
     process_this_frame = not process_this_frame
 
-    if(name not in students):
-        add_item(name)
-        students.append(name)
-        print(name)
-        
-    
 
-
+                
     for (top, right, bottom, left), name in zip(face_locations, face_names):
         top *= 4
         right *= 4

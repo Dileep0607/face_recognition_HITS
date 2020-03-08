@@ -78,20 +78,19 @@ section:after {
   <article>
     <h1>Add Student</h1>
 
-    <form action="{{ url_for('add') }}" method="POST">
+    <form action="/add" method="POST">
       <label for="fname">Name</label><br>
       <input type="text" id="fname" name="fname" text="fname"><br><br>
     
-      <form1 action="server.cgi" method="post" enctype="multipart/form-data">
+      <form1 action="/add" method="POST" enctype="multipart/form-data">
         <label for="fname">Image</label><br>
-        <input type="file" name="image" accept="image/*" capture="user">
+        <input type="file" name="image"/><br><br>
+        <input type="submit" value="Submit">
       </form1><br><br>
-      <input type="submit" value="Submit">
     </form><br><br>
-
+  
     </article>
     </section>
-
 
 </body>
 </html>

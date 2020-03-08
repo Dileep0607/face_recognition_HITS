@@ -1,6 +1,5 @@
 import sqlite3
 
-
 def execute_query(sql_query):
     """
     function to execute sql commands
@@ -13,15 +12,12 @@ def execute_query(sql_query):
         con.commit()
     return result
 
-
 def add_item(text):
 
     sql_query = """insert into attendance(name,date_time) VALUES ( '%s',datetime('now','localtime') )""" % (text)
     execute_query(sql_query)
 
-
-
-def get():
+def get_item():
 
     sql_query = """select * from attendance"""
     return execute_query(sql_query).fetchall()
